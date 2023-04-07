@@ -22,6 +22,7 @@ requirements:
     - python >=3.7
     - setuptools
     - setuptools_scm
+    - wheel
   run:
     - python >=3.7
     - pytest
@@ -34,15 +35,17 @@ test:
     - pytestqt
   commands:
     - pytest --help
-
+    - pip check
 about:
   home: https://github.com/pytest-dev/pytest-qt
   license: MIT
   license_file: LICENSE
   summary: pytest support for PyQt and PySide applications
-  doc_url: http://pytest-qt.readthedocs.io/en/latest/
+  doc_url: https://pytest-qt.readthedocs.io/en/latest/
   dev_url: https://github.com/pytest-dev/pytest-qt
 
 extra:
+  anaconda-services:
+    ref: https://anaconda.zendesk.com/agent/tickets/34583
   recipe-maintainers:
     - ianaobi
