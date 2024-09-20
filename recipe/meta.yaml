@@ -7,40 +7,47 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/p/pytest-qt/pytest-qt-{{ version }}.tar.gz
   sha256: {{ hash }}
 
 build:
   number: 0
-  script: python -m pip install . --no-deps --ignore-installed
-  noarch: python
+  skip: True  # [py<37 or s390x]
+  script: {{ PYTHON }} -m pip install . -vvv --no-deps --no-build-isolation --ignore-installed
 
 requirements:
   host:
+    - python
     - pip
-    - python >=3.7
+    - wheel
     - setuptools
     - setuptools_scm
   run:
-    - python >=3.7
-    - pytest
+    - python
+    - pytest >=3.0.0
 
 test:
   requires:
-    - pyqt 5.*
+    - pip
     - pytest
+    - pyqt >=5,<6
   imports:
     - pytestqt
+  source_files:
+    - setup.cfg
+    - tests
   commands:
-    - pytest --help
+    - pip check
+    - pytest -v tests -k "not (test_region or test_exceptions_dont_leak or test_stop or est_wait_window[waitExposed-True] or test_wait_for_window_shown[True])"  # [win]
 
 about:
   home: https://github.com/pytest-dev/pytest-qt
   license: MIT
+  license_family: MIT
   license_file: LICENSE
   summary: pytest support for PyQt and PySide applications
-  doc_url: http://pytest-qt.readthedocs.io/en/latest/
+  description: pytest plugin for Qt (PyQt5/PyQt6 and PySide2/PySide6) application testing
+  doc_url: https://pytest-qt.readthedocs.io
   dev_url: https://github.com/pytest-dev/pytest-qt
 
 extra:
