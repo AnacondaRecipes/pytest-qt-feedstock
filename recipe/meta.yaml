@@ -1,6 +1,6 @@
 {% set name = "pytest-qt" %}
-{% set version = "4.2.0" %}
-{% set hash = "00a17b586dd530b6d7a9399923a40489ca4a9a309719011175f55dc6b5dc8f41" %}
+{% set version = "4.4.0" %}
+{% set hash = "76896142a940a4285339008d6928a36d4be74afec7e634577e842c9cc5c56844" %}
 
 package:
   name: {{ name }}
@@ -25,6 +25,7 @@ requirements:
   run:
     - python
     - pytest >=3.0.0
+    - pluggy >=1.1
 
 test:
   requires:
@@ -34,7 +35,7 @@ test:
   imports:
     - pytestqt
   source_files:
-    - setup.cfg
+    - pytest.ini
     - tests
   commands:
     - pip check
