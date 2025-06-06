@@ -1,18 +1,18 @@
 {% set name = "pytest-qt" %}
-{% set version = "4.2.0" %}
-{% set hash = "00a17b586dd530b6d7a9399923a40489ca4a9a309719011175f55dc6b5dc8f41" %}
+{% set version = "4.4.0" %}
+{% set hash = "76896142a940a4285339008d6928a36d4be74afec7e634577e842c9cc5c56844" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/p/pytest-qt/pytest-qt-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/p/pytest-qt/pytest-qt-{{ version }}.tar.gz
   sha256: {{ hash }}
 
 build:
   number: 0
-  skip: True  # [py<37 or s390x]
+  skip: true  # [py<38 or s390x]
   script: {{ PYTHON }} -m pip install . -vvv --no-deps --no-build-isolation --ignore-installed
 
 requirements:
@@ -22,9 +22,11 @@ requirements:
     - wheel
     - setuptools
     - setuptools_scm
+    - setuptools-scm
   run:
     - python
-    - pytest >=3.0.0
+    - pytest
+    - pluggy >=1.1
 
 test:
   requires:
@@ -38,7 +40,7 @@ test:
     - tests
   commands:
     - pip check
-    - pytest -v tests -k "not (test_region or test_exceptions_dont_leak or test_stop or est_wait_window[waitExposed-True] or test_wait_for_window_shown[True])"  # [win]
+    - "pytest -v tests -k \"not (test_region or test_exceptions_dont_leak or test_stop or est_wait_window[waitExposed-True] or test_wait_for_window_shown[True])\""  # [win]
 
 about:
   home: https://github.com/pytest-dev/pytest-qt
