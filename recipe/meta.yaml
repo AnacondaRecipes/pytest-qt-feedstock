@@ -1,18 +1,17 @@
 {% set name = "pytest-qt" %}
-{% set version = "4.2.0" %}
-{% set hash = "00a17b586dd530b6d7a9399923a40489ca4a9a309719011175f55dc6b5dc8f41" %}
+{% set version = "4.5.0" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/p/pytest-qt/pytest-qt-{{ version }}.tar.gz
-  sha256: {{ hash }}
+  url: https://pypi.org/packages/source/p/pytest-qt/pytest_qt-{{ version }}.tar.gz
+  sha256: 51620e01c488f065d2036425cbc1cbcf8a6972295105fd285321eb47e66a319f
 
 build:
   number: 0
-  skip: True  # [py<37 or s390x]
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . -vvv --no-deps --no-build-isolation --ignore-installed
 
 requirements:
@@ -22,9 +21,12 @@ requirements:
     - wheel
     - setuptools
     - setuptools_scm
+    - setuptools-scm
   run:
     - python
-    - pytest >=3.0.0
+    - pytest
+    - pluggy >=1.1
+    - typing_extensions
 
 test:
   requires:
@@ -33,6 +35,13 @@ test:
     - pyqt >=5,<6
   imports:
     - pytestqt
+    - pytestqt._version
+    - pytestqt.exceptions
+    - pytestqt.logging
+    - pytestqt.qt_compat
+    - pytestqt.qtbot
+    - pytestqt.utils
+    - pytestqt.wait_signal
   source_files:
     - setup.cfg
     - tests
