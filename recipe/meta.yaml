@@ -10,7 +10,7 @@ source:
   sha256: 51620e01c488f065d2036425cbc1cbcf8a6972295105fd285321eb47e66a319f
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . -vvv --no-deps --no-build-isolation --ignore-installed
 
@@ -32,7 +32,7 @@ test:
   requires:
     - pip
     - pytest
-    - pyqt >=5,<6
+    - pyqt
   imports:
     - pytestqt
     - pytestqt._version
