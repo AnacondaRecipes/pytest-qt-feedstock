@@ -32,8 +32,7 @@ test:
   requires:
     - pip
     - pytest
-    - pyqt >=5,<6 # [not (win and arm64)]
-    - pyqt  # [win and arm64]
+    - pyqt
   imports:
     - pytestqt
     - pytestqt._version
